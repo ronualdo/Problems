@@ -6,24 +6,23 @@ var Coord = function(x, y) {
 var WeatherReport = function(map) {
   this.map = map;
 
+  
   this.daysUntilHittingAnAirport = function() {
-    var a = map;
+    return this.getDayWhen(map.cloudReachedAirport)
+  }
 
-    while (!map.cloudReachedAirport()) {
-      a = map.nextDayMap()
+  this.getDayWhen = function(eventOccurred) {
+    var auxMap = map;
+
+    while(!eventOccurred()) {
+      auxMap = map.nextDayMap();
     }
 
-    return map.day;
+    return auxMap.day
   }
 
   this.daysUntilHittingAllAirports = function() {
-    var a = map;
-
-    while (!map.cloudReachedAllAirports()) {
-      a = map.nextDayMap();
-    }
-
-    return map.day;
+    return this.getDayWhen(map.cloudReachedAllAirports)
   }
 }
 
