@@ -1,6 +1,8 @@
 var Map = function(height, width, cloudCoordinates, aiportsCoordinates) {
   this.height = height;
   this.width = width;
+  this.cloudCoordinates = [];
+  this.airportCoordinates = [];
 
   this.coord = function(x, y) {
     var newCoordinate = new Coord(x, y);
@@ -9,7 +11,20 @@ var Map = function(height, width, cloudCoordinates, aiportsCoordinates) {
       throw new Error('Invalid Coordinate');
     }
 
-    return new Coordinate
+    return newCoordinate
+  }
+
+  this.cloudReachedAnAirport = function() {
+    var retorno = false;
+    for(i = 0; i < this.airportCoordinates.length; i++) {
+      for(j = 0; j < this.cloudCoordinates.length; j++) {
+        if(this.airportCoordinates[i].equals(this.cloudCoordinates[j])) {
+          retorno = true;
+          break;
+        }
+      }
+    }
+    return retorno;
   }
 
   var Coord = function(x, y) {
@@ -17,11 +32,19 @@ var Map = function(height, width, cloudCoordinates, aiportsCoordinates) {
     this.y = y;
 
     this.isInvalid = function() {
-      return this.isNegative(); 
+      return this.isNegative() || this.isOutOfBounds(); 
+    }
+
+    this.isOutOfBounds = function() {
+      return x >= width || y >= height;
     }
 
     this.isNegative = function() {
       return x < 0 || y <0;
+    }
+
+    this.equals = function(anotherCoord) {
+      return this.x == anotherCoord.x && this.y == anotherCoord.y;
     }
   }
 }
