@@ -1,3 +1,28 @@
+Array.prototype.contains = function(element) {
+  for(i = 0; i < this.length; i++) {
+    if(this[i].equals(element)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+Array.prototype.containsSlice = function(slice) {
+  var retorno = false;
+
+  for(i = 0; i < slice.length; i++) {
+    if(!this.contains(slice[i])) {
+      retorno = false;
+      break;
+    } else {
+      retorno = true;
+    }
+  }
+
+  return retorno;
+}
+
 var Map = function(height, width, cloudCoordinates, aiportsCoordinates) {
   this.height = height;
   this.width = width;
@@ -15,16 +40,16 @@ var Map = function(height, width, cloudCoordinates, aiportsCoordinates) {
   }
 
   this.cloudReachedAnAirport = function() {
-    var retorno = false;
     for(i = 0; i < this.airportCoordinates.length; i++) {
-      for(j = 0; j < this.cloudCoordinates.length; j++) {
-        if(this.airportCoordinates[i].equals(this.cloudCoordinates[j])) {
-          retorno = true;
-          break;
-        }
+      if(this.cloudCoordinates.contains(this.airportCoordinates[i])) {
+        return true;
       }
     }
-    return retorno;
+    return false;
+  }
+
+  this.cloudReachedAllAirports = function() {
+    return this.cloudCoordinates.containsSlice(this.airportCoordinates);
   }
 
   var Coord = function(x, y) {
