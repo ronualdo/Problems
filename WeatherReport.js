@@ -23,7 +23,24 @@ Array.prototype.containsSlice = function(slice) {
   return retorno;
 }
 
-var Map = function(height, width, cloudCoordinates, aiportsCoordinates) {
+Array.prototype.equals = function(testArr) {
+  var result = true;
+  if (this.length == testArr.length) {
+    for(i = 0; i < this.length; i++) {
+      if(this.contains(testArr[i])) {
+        continue;
+      } else {
+        result = false;
+      }
+    }
+  } else {
+    result = false;
+  }
+
+  return result;
+}
+
+var Map = function(height, width) {
   this.height = height;
   this.width = width;
   this.cloudCoordinates = [];
@@ -52,6 +69,20 @@ var Map = function(height, width, cloudCoordinates, aiportsCoordinates) {
     return this.cloudCoordinates.containsSlice(this.airportCoordinates);
   }
 
+  this.nextDayMap = function() {
+    var result = new Map(this.width, this.heigth);
+    
+    var newCoordinates = this.cloudCoordinates;
+    for(i = 0; i < this.cloudCoordinates.length; i++) {
+      newCoordinates = newCoordinates.concat(this.cloudCoordinates[i].neighbours());
+    }
+    
+    result.airportCoordinates = this.airportCoordinates;
+    result.cloudCoordinates = newCoordinates;
+
+    return result;
+  }
+
   var Coord = function(x, y) {
     this.x = x;
     this.y = y;
@@ -70,6 +101,26 @@ var Map = function(height, width, cloudCoordinates, aiportsCoordinates) {
 
     this.equals = function(anotherCoord) {
       return this.x == anotherCoord.x && this.y == anotherCoord.y;
+    }
+
+    this.neighbours = function() {
+      var result = [];
+      if (x > 0) {
+        result = result.concat(new Coord(x-1, y));
+      }
+
+      if (y > 0) {
+        result = result.concat(new Coord(x, y-1));
+      }
+      
+      if(x < width-1){
+        result = result.concat(new Coord(x+1, y));
+      }
+      
+      if(y < height-1) {
+        result = result.concat(new Coord(x, y+1));
+      }
+      return result;
     }
   }
 }

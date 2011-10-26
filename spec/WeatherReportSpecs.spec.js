@@ -1,6 +1,5 @@
 var weatherReportModule = require('/home/ronualdo/arquivos/workspace/Ashes/WeatherReport')
 
-var Coord = weatherReportModule.Coord
 var WeatherReport = weatherReportModule.WeatherReport
 
 describe('A WeatherReport', function() {
