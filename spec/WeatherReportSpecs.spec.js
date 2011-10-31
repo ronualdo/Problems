@@ -8,14 +8,14 @@ describe('A WeatherReport', function() {
     var map = {
       day: 1,
       
-      cloudReachedAirport: function() {
+      cloudReachedAnAirport: function() {
         return false;
       },
 
       nextDayMap: function() {
         return anotherDayMap = {
           day: 2,
-          cloudReachedAirport: function() {
+          cloudReachedAnAirport: function() {
             return true;
           }
         };

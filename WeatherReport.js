@@ -41,6 +41,7 @@ Array.prototype.equals = function(testArr) {
 }
 
 var Map = function(height, width) {
+  this.day = 1;
   this.height = height;
   this.width = width;
   this.cloudCoordinates = [];
@@ -77,9 +78,10 @@ var Map = function(height, width) {
       newCoordinates = newCoordinates.concat(this.cloudCoordinates[i].neighbours());
     }
     
+    result.day = this.day + 1;
     result.airportCoordinates = this.airportCoordinates;
     result.cloudCoordinates = newCoordinates;
-
+    
     return result;
   }
 
@@ -133,7 +135,7 @@ var WeatherReport = function(map) {
   
   this.daysUntilHittingAnAirport = function() {
     var hittedAirport = function(map) {
-      return map.cloudReachedAirport();
+      return map.cloudReachedAnAirport();
     }
 
     return this.getDayWhen(hittedAirport);
@@ -143,6 +145,7 @@ var WeatherReport = function(map) {
     var auxMap = map;
 
     while(!eventOccurred(auxMap)) {
+      console.log(auxMap.day)
       auxMap = auxMap.nextDayMap();
     }
 
