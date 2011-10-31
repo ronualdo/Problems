@@ -1,4 +1,4 @@
-var weatherReportModule = require('/home/ronualdo/arquivos/workspace/Ashes/WeatherReport')
+var weatherReportModule = require('/home/ronualdo/arquivos/workspace/problems/AshCloud/WeatherReport')
 
 var Map = weatherReportModule.Map
 var Coord = weatherReportModule.Coord

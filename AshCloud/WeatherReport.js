@@ -145,7 +145,6 @@ var WeatherReport = function(map) {
     var auxMap = map;
 
     while(!eventOccurred(auxMap)) {
-      console.log(auxMap.day)
       auxMap = auxMap.nextDayMap();
     }
 

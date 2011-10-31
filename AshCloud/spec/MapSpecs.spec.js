@@ -1,4 +1,4 @@
-var weatherModule = require('/home/ronualdo/arquivos/workspace/Ashes/WeatherReport')
+var weatherModule = require('/home/ronualdo/arquivos/workspace/problems/AshCloud/WeatherReport')
 var Map = weatherModule.Map
 
 describe('Map', function() {
